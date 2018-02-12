@@ -1,7 +1,5 @@
-var players = [];
-var score=[];
-
 function play(player1, player2){
+    var players = [];
     players.push(player1);
     players.push(player2);
     player1.score=0;
@@ -11,7 +9,7 @@ function play(player1, player2){
     beginRound(players);
     players.forEach((player) => {
         player.on('playerAnswer', answer => {
-            evaluateAnswer(player, answer);
+            evaluateAnswer(players, player, answer);
         });
     });   
 };
@@ -24,11 +22,11 @@ function beginRound(players){
     players.forEach((player) => player.emit('message', 'How much is: ' + a + " * " + b + '?'));
 }
 
-function evaluateAnswer(player, answer){
+function evaluateAnswer(players, player, answer){
     if(answer==a * b){
         player.emit('message', 'You answered correctly');
         player.score++;
-        console.log(player + ' score = ' + player.score);
+        players.forEach((player) => player.emit('scoreMsg', ([players[0].score, players[1].score])));
         beginRound(players);
     }
     else

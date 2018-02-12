@@ -6,6 +6,10 @@ socket.on('message', (text) => {
     writeMessage(text);
 });
 
+socket.on('scoreMsg', (score) => {
+    document.getElementById('scoreHolder').innerHTML="Player1: " + score[0] + ", player2: " + score[1];
+});
+
 const answerForm=document.getElementById('answer-form');
 answerForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
@@ -29,4 +33,3 @@ const onAnswerSubitted = (evt) => {
     input.value=0; 
     socket.emit('playerAnswer', answer);   
 };
-
