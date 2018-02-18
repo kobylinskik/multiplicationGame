@@ -1,0 +1,64 @@
+body {
+    background-image: url("coffee-cup-mug-desk.jpg");
+    background-repeat: no-repeat;
+    background-size: auto;
+    background-color: white;
+    color: darkblue;
+    z-index: 0;
+}
+
+#game-window {
+    display: none;
+}
+
+#nickname-window {
+    display: block;
+    position: fixed;
+    z-index: 100;    
+}
+
+#message-window {
+    font-size: 35px;
+    position: fixed;
+    top: 0%;
+    left: 50%;
+    width: 500px;
+    text-align: center;
+    margin-left: -250px;
+}
+
+.waitingForPlayer {
+    animation: flickering 2s infinite linear;
+}
+
+.gameStarted {       
+    animation: fadeout 3s 1 linear;
+    opacity: 0;
+}
+
+@keyframes flickering {
+    0% {
+        opacity: 0;
+    }
+    40% {
+        opacity: 1;
+    }
+    60% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes fadeout {
+    0% {
+        opacity: 1;
+    }
+    35% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}

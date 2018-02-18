@@ -6,10 +6,32 @@ socket.on('message', (text) => {
     writeMessage(text);
 });
 
+//Changes the text in HTML file whenever the 'scoreMsg' event is received
 socket.on('scoreMsg', (score) => {
-    document.getElementById('scoreHolder').innerHTML="Player1: " + score[0] + ", player2: " + score[1];
+    document.getElementById('scoreHolder').innerHTML='Score: ' + score;
 });
 
+//Shows the game window
+socket.on('showGame', () => {
+    const messageWindow=document.getElementById('message-window');
+    messageWindow.textContent='The game has begun!';
+    messageWindow.classList.remove('waitingForPlayer');
+    messageWindow.classList.add('gameStarted');
+    document.getElementById('game-window').style.display='block';
+});
+
+//Lets a player enter a nickname
+const nicknameForm=document.getElementById('nickname-form');
+nicknameForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    var input=document.getElementById('nickname');
+    var nickname=input.value;
+    socket.emit('nicknameSelected', nickname);
+    var nicknameWindow=document.getElementById('nickname-window');
+    nicknameWindow.style.display='none';
+});
+
+//Allows players to submit their answers
 const answerForm=document.getElementById('answer-form');
 answerForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
@@ -20,12 +42,11 @@ answerForm.addEventListener('submit', (evt) => {
 });
 
 const writeMessage = (text)=>{
-    const list=document.getElementById('questions');
-    const question=document.createElement('li');
+    const question=document.getElementById('question');    
     question.innerHTML=text;
-    list.appendChild(question);
 };
 
+//Handles the answer submission
 const onAnswerSubitted = (evt) => {
     evt.preventDefault();
     var input=document.getElementById('answer');
